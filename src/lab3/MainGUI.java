@@ -20,9 +20,18 @@ import javax.swing.*;
  * @version     1.00
 */
 public class MainGUI extends javax.swing.JFrame implements ActionListener {
+    
+    /**
+     * many of these properties can be removed they are here temporarily  
+     * until this code gets modularized to prevent errors from popping up
+     * all over the place.
+     */
+    
+    
     private final int MAX_RECS = 10;
     private final int NOT_FOUND = -1;
-
+    PartManager partmanager = new PartManager();
+    
     String partNo;
     int foundIndex = NOT_FOUND;
     private String partDesc;
@@ -37,6 +46,7 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener {
     public MainGUI() {
         initComponents();
         this.txtNewProdNo.requestFocus();
+       
     }
 
     /** This method is called from within the constructor to
@@ -259,8 +269,9 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener {
     private void btnEnterRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnterRecordActionPerformed
         foundIndex = NOT_FOUND;
 
-        partNo = this.txtNewProdNo.getText();
-        partDesc = this.txtNewProdDesc.getText();
+        partmanager.setPartNo(this.txtNewProdNo.getText());
+        partmanager.setPartDesc(this.txtNewProdDesc.getText());
+               
         try {
             partPrice = Double.parseDouble(this.txtNewProdPrice.getText());
         } catch(Exception e) {
@@ -270,12 +281,14 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener {
             return;
         }
 
-        if (emptyRow > 10) {
+        partmanager.setPartPrice(partPrice);
+        
+        if (partmanager.getEmptyRow() > 10) {
             JOptionPane.showMessageDialog(this, 
                     "Sorry, you have reach the maximum of 10 items.\n"
                     + "No more items can be saved.", "Maximum Reached", JOptionPane.WARNING_MESSAGE);
-
-        } else if (partNo.length() == 0 || partDesc.length() == 0 
+        }
+         else if (partmanager.getPartNo().length() == 0 || partmanager.getPartDesc().length() == 0 
                 || this.txtNewProdPrice.getText().length() == 0)
         {
             JOptionPane.showMessageDialog(this, 
@@ -283,19 +296,21 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener {
                     "Incomplete Part Entry", JOptionPane.WARNING_MESSAGE);
             this.txtNewProdNo.requestFocus();
 
-        } else {
-            partNums[emptyRow] = partNo;
-            partDescs[emptyRow] = partDesc;
-            partPrices[emptyRow] = partPrice;
-            this.emptyRow += 1;
-        }
-
+        } 
+        
+        
+        partmanager.finalizeRecord();
+              
         clearEntryFields();
         this.txtNewProdNo.requestFocus();
 }//GEN-LAST:event_btnEnterRecordActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         String searchNum = txtSearchPartNo.getText();
+        
+        partmanager.preformSearch(searchNum);
+        
+        
         if (searchNum != null && searchNum.length() > 0) {
             for (int i = 0; i < this.partNums.length; i++) {
                 if (searchNum.equalsIgnoreCase(partNums[i])) {

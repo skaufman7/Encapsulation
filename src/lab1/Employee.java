@@ -11,6 +11,17 @@ import java.util.Date;
  * @version     1.01
  */
 public class Employee {
+    
+    /**
+     * Create a new method "hireEmployee" keep that public and then
+     * from there make the other methods private.
+     */
+    
+    
+    
+    
+    
+    
     private String firstName;
     private String lastName;
     private String ssn;
