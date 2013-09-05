@@ -11,29 +11,101 @@ import java.util.Date;
  * @version     1.01
  */
 public class Employee {
-    String firstName;
-    String lastName;
-    public String ssn;
-    public Date birthDate;
-    boolean metWithHr;
-    boolean metDeptStaff;
-    boolean reviewedDeptPolicies;
-    boolean movedIn;
-    String cubeId;
+    private String firstName;
+    private String lastName;
+    private String ssn;
+    private Date birthDate;
+    private boolean metWithHr;
+    private boolean metDeptStaff;
+    private boolean reviewedDeptPolicies;
+    private boolean movedIn;
+    private String cubeId;
 
     public Employee() {
 
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getSsn() {
+        return ssn;
+    }
+
+    public void setSsn(String ssn) {
+        this.ssn = ssn;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public boolean isMetWithHr() {
+        return metWithHr;
+    }
+
+    public void setMetWithHr(boolean metWithHr) {
+        this.metWithHr = metWithHr;
+    }
+
+    public boolean isMetDeptStaff() {
+        return metDeptStaff;
+    }
+
+    public void setMetDeptStaff(boolean metDeptStaff) {
+        this.metDeptStaff = metDeptStaff;
+    }
+
+    public boolean isReviewedDeptPolicies() {
+        return reviewedDeptPolicies;
+    }
+
+    public void setReviewedDeptPolicies(boolean reviewedDeptPolicies) {
+        this.reviewedDeptPolicies = reviewedDeptPolicies;
+    }
+
+    public boolean isMovedIn() {
+        return movedIn;
+    }
+
+    public void setMovedIn(boolean movedIn) {
+        this.movedIn = movedIn;
+    }
+
+    public String getCubeId() {
+        return cubeId;
+    }
+
+    public void setCubeId(String cubeId) {
+        this.cubeId = cubeId;
+    }
+
     // Assume this must be performed first
     public void meetWithHrForBenefitAndSalryInfo() {
-        metWithHr = true;
+        setMetWithHr(true);
     }
 
     // Assume this is must be performed second
     public void meetDepartmentStaff() {
-        if(metWithHr) {
-            metDeptStaff = true;
+        if(isMetWithHr()) {
+            setMetDeptStaff(true);
         } else {
             throw new IllegalStateException("Sorry, you cannot meet with "
                     + "department staff until you have met with HR.");
@@ -42,8 +114,8 @@ public class Employee {
 
     // Assume this must be performed third
     public void reviewDeptPolicies() {
-        if(metWithHr && metDeptStaff) {
-            reviewedDeptPolicies = true;
+        if(isMetWithHr() && isMetDeptStaff()) {
+            setReviewedDeptPolicies(true);
         } else {
             throw new IllegalStateException("Sorry, you cannot review "
                     + " department policies until you have first met with HR "
@@ -53,9 +125,9 @@ public class Employee {
 
     // Assume this must be performed 4th
     public void moveIntoCubicle(String cubeId) {
-        if(metWithHr && metDeptStaff && reviewedDeptPolicies) {
+        if(isMetWithHr() && isMetDeptStaff() && isReviewedDeptPolicies()) {
             this.cubeId = cubeId;
-            this.movedIn = true;
+            setMovedIn(true);
         } else {
             throw new IllegalStateException("Sorry, you cannot move in to a "
                     + "cubicle until you have first met with HR "
@@ -66,8 +138,8 @@ public class Employee {
     }
 
     public String getStatus() {
-        if(metWithHr && metDeptStaff
-           && reviewedDeptPolicies && movedIn) {
+        if(isMetWithHr() && isMetDeptStaff()
+           && isReviewedDeptPolicies() && isMovedIn()) {
             return "Orientation is complete";
         } else {
             return "Orientation in progress...";
