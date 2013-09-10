@@ -55,8 +55,4 @@ public class GameCharacter {
         this.yPosition = yPosition;
         this.health = health;
     }
-
-  
-    
-    
 }
