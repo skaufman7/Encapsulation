@@ -11,7 +11,7 @@ package lab3;
 public class PartManager {
 
     private int foundIndex;
-    private final int NOT_FOUND = -1;
+    private final int NOT_FOUND = -1; // flag for no record
     private final int UPDATE_COMPLETE = -2; //flag for task completion
     private String partNo;
     private String partDesc;
@@ -21,9 +21,8 @@ public class PartManager {
     double[] partPrices = new double[10];
     private int emptyRow;
 
-    //the getter methods assume validation from the 
-    //finalize record method when the data is set
-    
+    //validation is need on most of this although 
+    //some is preformed in the GUI
     
     
     
