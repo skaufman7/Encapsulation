@@ -9,9 +9,7 @@ package lab2;
  * @author Steve
  * 
  * 
- * I know there is no game loop and no way to move the character
- * that will be implemented over the weekend
- * this is just to get started.
+
  */
 public class Game {
     
